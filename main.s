@@ -5,7 +5,6 @@
     .byte 1 ; 1x 8 KiB CHR data
     .byte $01 ; mapper 0
     .byte $00 ; vertical mirroring
-
 ;   the rest of these bytes are set to zero
 
 .segment "ZEROPAGE"
@@ -118,6 +117,7 @@ palette_data:
     .byte $22, $0F, $36, $17  ;sprite palette data
 
 sprite_data: ; sprite data for mario
+;         Y    ID   ATR  X
     .byte $08, $00, $00, $08
     .byte $08, $01, $00, $10
     .byte $10, $02, $00, $08
