@@ -128,4 +128,4 @@ sprite_data: ; sprite data for mario
     .byte $20, $07, $00, $10
 
 .segment "CHARS" ; divided into two "banks" - a high bit and a low bit
-    .incbin "assets/hellomario.chr"
+    .incbin "assets/chess.chr"
