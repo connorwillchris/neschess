@@ -8,6 +8,10 @@
 ;   the rest of these bytes are set to zero
 
 .segment "ZEROPAGE"
+
+w_rook:
+    .res 1 ; reserve 1 byte for white rook
+
 ;   PUT VARIABLES HERE!
 
 .segment "VECTORS"
@@ -37,9 +41,9 @@ vblankwait_1:
     bpl vblankwait_1
     txa ; END LOOP, x should be $00, so ACC = 0
 clearmem:
-    sta $0000, x 
+    sta $0000, x
     sta $0100, x
-;   sprites should be stored here in $0200
+;   sprites should be stored in $0200
     sta $0300, x
     sta $0400, x
     sta $0500, x
@@ -83,7 +87,6 @@ load_sprites:
     cpx #32 ; 32 bytes = 4*8 bytes, where 8 is tiles required
     bne load_sprites
 ;   LOOP END
-
 turn_on_drawing:
 ;   TURN ON DRAWING
 ;   lda #%10010000 ; uses the second screen entirely with bank 2
@@ -92,7 +95,6 @@ turn_on_drawing:
 ;   lda #%00011110 ; turn on drawing of background and sprites
     lda #%00011110 ; TODO: CHECK IF THIS WORKS
     sta $2001
-
 ;   enter game loop
 forever_loop:
     jmp forever_loop
@@ -106,26 +108,29 @@ _nmi:
 ;   palette data can be here
 ;   NOTE: copied directly from MICHAEL's code
 palette_data:
-    .byte $22, $29, $1A, $0F
-    .byte $22, $36, $17, $0F
-    .byte $22, $30, $21, $0F
-    .byte $22, $27, $17, $0F  ;background palette data
+    .byte $22, $29, $1a, $0f ; background palette data
+    .byte $22, $36, $17, $0f
+    .byte $22, $30, $21, $0f
+    .byte $22, $27, $17, $0f
 
-    .byte $22, $16, $27, $18
+    .byte $22, $16, $27, $18 ; sprite palette data
     .byte $22, $1A, $30, $27
     .byte $22, $16, $30, $27
-    .byte $22, $0F, $36, $17  ;sprite palette data
+    .byte $22, $0f, $36, $17
 
-sprite_data: ; sprite data for mario
+;   sprite data for mario
+sprite_data:
 ;         Y    ID   ATR  X
-    .byte $08, $00, $00, $08
-    .byte $08, $01, $00, $10
-    .byte $10, $02, $00, $08
-    .byte $10, $03, $00, $10
-    .byte $18, $04, $00, $08
-    .byte $18, $05, $00, $10
-    .byte $20, $06, $00, $08
-    .byte $20, $07, $00, $10
+    .byte $08, $00, $00, $08 ; x4
+    .byte $08, $01, $00, $10 ; x8
+    .byte $10, $02, $00, $08 ; x12
+    .byte $10, $03, $00, $10 ; x16
+    .byte $18, $04, $00, $08 ; x20
+    .byte $18, $05, $00, $10 ; x24
+    .byte $20, $06, $00, $08 ; x28
+    .byte $20, $07, $00, $10 ; x32
 
-.segment "CHARS" ; divided into two "banks" - a high bit and a low bit
+;   divided into two "banks" ...
+;   a high bit and a low bit
+.segment "CHARS"
     .incbin "assets/chess.chr"
