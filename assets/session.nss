@@ -3,8 +3,8 @@ NSTssTXT
 BtnTiles=1
 BtnChecker=0
 BtnSelTiles=0
-BtnChrBank1=1
-BtnChrBank2=0
+BtnChrBank1=0
+BtnChrBank2=1
 BtnChrBank3=0
 BtnChrBank4=0
 BtnGridAll=0
@@ -54,14 +54,14 @@ bOAMtextEnableWarning=0
 bOAMtextJustWarning=0
 VarNullTile=0
 VarBankActive_mapBuffer=0
-VarBankActive_msprBuffer=0
+VarBankActive_msprBuffer=4096
 VarPalBank_mapBuffer=0
 VarPalBank_msprBuffer=0
 VarTileViewTagBuf=0
 VarBgPalCur=1
-VarPalActive=3
-VarTileActive=23
-VarBankActive=0
+VarPalActive=0
+VarTileActive=28
+VarBankActive=4096
 VarPPUMask=0
 VarPPUMaskSet0=0
 VarPPUMaskSet1=0
@@ -74,20 +74,20 @@ VarMetaSpriteActive=0
 VarSpriteActive=-1
 VarSpriteGridX=64
 VarSpriteGridY=64
-VarNameW=32
-VarNameH=30
-VarNameViewX=0
-VarNameViewY=-1
-VarNameViewX2=0
-VarNameViewY2=-1
+VarNameW=1
+VarNameH=1
+VarNameViewX=-15
+VarNameViewY=-15
+VarNameViewX2=-15
+VarNameViewY2=-15
 VarNameSelectionL=-1
 VarNameSelectionR=0
 VarNameSelectionT=-1
 VarNameSelectionB=0
 VarNameCopyW=-1
 VarNameCopyH=-1
-VarCHRSelectionL=7
-VarCHRSelectionR=8
+VarCHRSelectionL=12
+VarCHRSelectionR=13
 VarCHRSelectionT=1
 VarCHRSelectionB=2
 VarCHRCopyW=1
@@ -161,7 +161,7 @@ FilterCHR=1
 FilterName=1
 FileNameCHR=Z:\home\connor\Dev\neschess\assets\chess.chr
 FileNameName=Z:\home\connor\Dev\neschess\assets\chess
-FileNamePal=Z:\home\connor\Dev\neschess\assets\chess
+FileNamePal=Z:\home\connor\Dev\neschess\assets\palettes
 FileNameMetaSpriteBank=
 FileNameTileProps=
 FileNameMetatileText=
@@ -175,40 +175,40 @@ RadioAutoexport_UseSubDir_NEXXT=0
 CheckAutoexport_MetatileAsBMP=0
 
 
-VarCHRSelected=00[17]0100[e8]
+VarCHRSelected=00[1c]0100[e3]
 
 
-Palette=0f0010300f0c21320f0516270f0b1a290f1c21320f1122330f1223340f1324350f1324360f1526370f1627370f1928380f1829380f1b2a390f1b2b3c0f1c2c3b
+Palette=0f2010000f30[3]0f36[3]0f37[2]300f1c21320f1122330f1223340f1324350f1324360f1526370f1627370f1928380f1829380f1b2a390f1b2b3c0f1c2c3b
 
 
-PalUndo=0f0010300f0c21320f0516270f0b1a290f1c21320f1122330f1223340f1324350f1324360f1526370f1627370f1928380f1829380f1b2a390f1b2b3c0f1c2c3b
+PalUndo=0f3010000f30[3]0f36[3]0f37[2]300f1c21320f1122330f1223340f1324350f1324360f1526370f1627370f1928380f1829380f1b2a390f1b2b3c0f1c2c3b
 
 
-CHRMain=00[10]1034[2]183c0018[2]00[8]3c00ff00[d]18[2]003c[2]0018[2]00[8]183c00ff00[c]7c4672dafade1e3c00[8]3c7e00ff00[c]183c[2]180018[2]3c00[9]ff00[e]183c18[2]003c[2]1800[8]183c00ff00[c]db[2]ff007e[2]66[2]00[8]7eff00ff00[3f3c]
+CHRMain=00[10]1034[2]183c0018[2]00[8]3c00ff00[d]18[2]003c[2]0018[2]00[8]183c00ff00[c]7c4672dafade1e3c00[8]3c7e00ff00[c]183c[2]180018[2]3c00[9]ff00[e]183c18[2]003c[2]1800[8]183c00ff00[c]db[2]ff007e[2]66[2]00[8]7eff00ff00[f54]ff[18]00[d1]3c66[2]6e76663c00[9]183818[4]3c00[9]3c660c1830627e00[9]3c66060c06663c00[9]0e1e3666677f0600[9]3e32303c06[2]3c00[9]1e307c66[3]3c00[9]7e06[2]0c18[2]3800[9]3c66[2]3c66[2]3c00[9]3c66[2]3e060c3800[9]183c667e66[2]e700[9]7e33[2]3e33[2]7e00[2e48]
 
 
-CHRUndo=00[20]3c00ff00[d]18[2]003c[2]0018[2]00[8]183c00ff00[c]7c4672dafade1e3c00[8]3c7e00ff00[c]183c[2]180018[2]3c00[9]ff00[e]183c18[2]003c[2]1800[8]183c00ff00[c]db[2]ff007e[2]66[2]00[8]7eff00ff00[3f3c]
+CHRUndo=00[10]1034[2]183c0018[2]00[8]3c00ff00[d]18[2]003c[2]0018[2]00[8]183c00ff00[c]7c4672dafade1e3c00[8]3c7e00ff00[c]183c[2]180018[2]3c00[9]ff00[e]183c18[2]003c[2]1800[8]183c00ff00[c]db[2]ff007e[2]66[2]00[8]7eff00ff00[f54]ff[18]00[d1]3c66[2]6e76663c00[9]183818[4]3c00[9]3c660c1830627e00[9]3c66060c06663c00[9]0e1e3666677f0600[9]3e32303c06[2]3c00[9]1e307c66[3]3c00[9]7e06[2]0c18[2]3800[9]3c66[2]3c66[2]3c00[9]3c66[2]3e060c3800[9]183c667e66[2]e700[9]7e33[2]3e33[2]7e00[2e48]
 
 
-CHRCopy=1034[2]183c0018[2]00[3ff8]
+CHRCopy=007e33[2]3e33[2]7e00[3ff8]
 
 
-NameTable=00[3c0]
+NameTable=01
 
 
-NameCopy=00[3c0]
+NameCopy=00
 
 
-NameUndo=00[3c0]
+NameUndo=01
 
 
-AttrTable=ff3f00[6]ff3300[36]
+AttrTable=fc
 
 
-AttrCopy=00[40]
+AttrCopy=00
 
 
-AttrUndo=ff3f00[6]ff3300[36]
+AttrUndo=fc
 
 
 MetaSprites=ff[10000]
@@ -357,14 +357,14 @@ MetatileSet_8x8_props=00[2000]
 MetatileSet_8x8_propsUndo=00[2000]
 
 
-MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-MetatileSetLabels_8x8=Unlabeled,Unlabeled
-MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
+MetatileSetLabels_8x8=Unlabeled,Unlabeled
+MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
 
 CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
@@ -436,16 +436,16 @@ Checkpoint_CHRMain=00[4000]
 Checkpoint_CHRUndo=00[4000]
 
 
-Checkpoint_NameTable=00[3c0]
+Checkpoint_NameTable=00
 
 
-Checkpoint_NameUndo=00[3c0]
+Checkpoint_NameUndo=00
 
 
-Checkpoint_AttrTable=00[40]
+Checkpoint_AttrTable=00
 
 
-Checkpoint_AttrUndo=00[40]
+Checkpoint_AttrUndo=00
 
 
 Checkpoint_MetaSprites=ff[10000]
@@ -538,18 +538,18 @@ Checkpoint_MetatileSet_8x8_props=00[2000]
 Checkpoint_MetatileSet_8x8_propsUndo=00[2000]
 
 
-Checkpoint_MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_2x2=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_2x2Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_4x4=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_4x4Undo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_MetatileSetLabels_8x8=Unlabeled,Unlabeled
-Checkpoint_MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_8x8=Unlabeled,Unlabeled
+Checkpoint_MetatileSetLabels_8x8Undo=Unlabeled,Unlabeled
 
-Checkpoint_CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_CHRBankLabels=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
-Checkpoint_CHRBankLabelsUndo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
+Checkpoint_CHRBankLabelsUndo=Unlabeled,Unlabeled,Unlabeled,Unlabeled
 
 
 Checkpoint_32_NTSC_MsprDuration=00000006[100]
@@ -618,7 +618,7 @@ Current preset ID=0
 
 GUI behaviour:
 ---------------------------------------------------------
-Use paired mode if possible=1
+Use paired mode if possible=0
 Affect backgrounds=1
 Affect sprites=1
 

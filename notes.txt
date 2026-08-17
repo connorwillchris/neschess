@@ -1,0 +1,11 @@
+For ca65 specifically, I set up my makefile to collect all `.s` files and assemble them into indepenent `.o` files, one `ca65` run for each. From there, `ld65` takes all of the `.o` files and produces the final build
+
+to share symbols, I make heavy use of `.global`
+
+my pattern is to create an `.inc` file, with the managed symbols (and constants, macros, and structs) for the corresponding `.s` file
+
+each `.s` file includes its own "header" (`.inc`), and for _that_ run of ca65, `.global` will see that the symbol exists, and behave like `.export`
+
+everything that wants to _use_ those symbols can now also include the `.inc` file. since they don't define the symbol, `.global` instead behaves like `.import`
+
+the linker is able to work it out from there, and it gives me nice separation between my modules.

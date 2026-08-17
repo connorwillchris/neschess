@@ -7,8 +7,9 @@
     .byte $00 ; vertical mirroring
 ;   the rest of these bytes are set to zero
 
-.segment "ZEROPAGE"
+SPRITES_LEN = 8
 
+.segment "ZEROPAGE"
 w_rook:
     .res 1 ; reserve 1 byte for white rook
 
@@ -81,10 +82,10 @@ load_palettes: ; load all the palettes, which are hardcoded rn
 ;   4 byte is the X coord
     ldx #$00
 load_sprites:
-    lda sprite_data, x ; will get all sprites
+    lda rook_sprite, x ; will get all sprites
     sta $0200, x ; store them into $0200 to init our sprites
     inx ; increment the index
-    cpx #32 ; 32 bytes = 4*8 bytes, where 8 is tiles required
+    cpx #SPRITES_LEN ; 32 bytes = 4*8 bytes, where 8 is tiles required
     bne load_sprites
 ;   LOOP END
 turn_on_drawing:
@@ -118,17 +119,10 @@ palette_data:
     .byte $22, $16, $30, $27
     .byte $22, $0f, $36, $17
 
-;   sprite data for mario
-sprite_data:
+rook_sprite:
 ;         Y    ID   ATR  X
-    .byte $08, $00, $00, $08 ; x4
-    .byte $08, $01, $00, $10 ; x8
-    .byte $10, $02, $00, $08 ; x12
-    .byte $10, $03, $00, $10 ; x16
-    .byte $18, $04, $00, $08 ; x20
-    .byte $18, $05, $00, $10 ; x24
-    .byte $20, $06, $00, $08 ; x28
-    .byte $20, $07, $00, $10 ; x32
+    .byte $08, $01, $00, $01 ; x4
+    .byte $10, $02, $00, $01 ; x8
 
 ;   divided into two "banks" ...
 ;   a high bit and a low bit
