@@ -7,7 +7,7 @@
     .byte $00 ; vertical mirroring
 ;   the rest of these bytes are set to zero
 
-SPRITES_LEN = 8
+SPRITES_AMOUNT = 8
 
 .segment "ZEROPAGE"
 w_rook:
@@ -85,7 +85,7 @@ load_sprites:
     lda rook_sprite, x ; will get all sprites
     sta $0200, x ; store them into $0200 to init our sprites
     inx ; increment the index
-    cpx #SPRITES_LEN ; 32 bytes = 4*8 bytes, where 8 is tiles required
+    cpx #SPRITES_AMOUNT ; 32 bytes = 4*8 bytes, where 8 is tiles required
     bne load_sprites
 ;   LOOP END
 turn_on_drawing:
