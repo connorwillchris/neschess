@@ -7,7 +7,7 @@
 ;;; END
 
 BYTES_PER_SPRITE    = 4
-SPRITES_AMOUNT      = 2 * BYTES_PER_SPRITE ; THE AMOUNT OF BYTES FOR THE NECESSARY SPRITES.
+SPRITES_AMOUNT      = 2 * BYTES_PER_SPRITE ; THE AMOUNT OF BYTES FOR THE NECESSARY SPRITES
 
 PPU_CTRL            = $2000
 PPU_MASK            = $2001
@@ -19,8 +19,8 @@ OAM_DMA             = $4014
 FRAME_CTR           = $4017
 
 .segment "ZEROPAGE"
-
-;   PUT VARIABLES HERE!
+world_ptr:
+    .res 2
 
 .segment "VECTORS"
     .addr _nmi
@@ -39,8 +39,8 @@ _reset:
     ldx #$ff            ; initialize the stack register
     txs                 ; stack is $ff
     inx                 ; x = $00
-    stx PPUCTRL         ; PPUCTRL register, disabling it
-    stx PPUMASK         ; do the same for PPUMASK, disable it
+    stx PPU_CTRL         ; PPU_CTRL register, disabling it
+    stx PPU_MASK         ; do the same for PPU_MASK, disable it
     stx APU_DMC         ; disable DMC IRQs
 vblankwait_1:           ; the nes should be okay to use now
     bit PPU_STATUS      ; WHAT IS THIS LOCATION?
@@ -81,20 +81,63 @@ load_palettes:          ; load all the palettes, which are hardcoded rn
     inx                 ; increment the index
     cpx #32             ; 32 palettes
     bne load_palettes
-    ldx #$00
 
+;   ldx #$00
+nametables_init:
+;   AFTER LOAD PALETTES, LOAD THE NAMETABLE DATA
+;   1024 bytes which will be loaded into $2000
+;   initialize world to point to world_data ptr
+    lda #<world_data
+    sta world_ptr
+    lda #>world_data
+    sta world_ptr + 1
+;   setup address in PPU for nametable data, or world
+;   data, known as nametable
+    bit PPU_STATUS
+    lda #$20
+    sta PPU_ADDR
+    lda #$00
+    sta PPU_ADDR
+    ldx #$00
+    ldy #$00 ; now initialize loop
+@loop_1:
+    lda (world_ptr), y
+    sta $2007
+    iny ; increment y
+    cpx #$03 ; compare x to #3
+    bne @loop_2
+    cpy #$c0 ; compare y to #$c0
+    beq @done_with_loop
+@loop_2:
+    cpy #$00 ; y is 0, which means 255+1, so increment x
+    bne @loop_1 ; go back if we need to continue
+    inx ; increment x here for our counter
+    inc world_ptr + 1 ; increment the high byte (adding 256 to ADDR)
+    jmp @loop_1
+@done_with_loop:
+;   DONE WITH NAMETABLE
+
+    lda #$55 ; point to the appropriate palettes
+set_attribs:
+    sta $2007 ; still storing into nametable
+    inx
+    cpx #$40 ; compare to #64
+    bne set_attribs
+
+;   DONE WITH LOOP set attribs
+    ldx #$00
+    ldy #$00
 load_sprites:           ; will get all sprites
-    lda bishop_sprite, x
+    lda bishop_sprite_data, x
     sta $0200, x        ; store them into $0200 to init our sprites
     inx                 ; increment the index
-
     cpx #SPRITES_AMOUNT ; 32 bytes = 4*8 bytes, where 8 is tiles required
-
     bne load_sprites
 ;   LOOP END
 
 turn_on_drawing:
 ;   lda #%10010000      ; uses the second screen entirely with bank 2 (UNUSED)
+    cli
     lda #%10010000      ; TODO: TRY THIS CODE ... Enable NMI
     sta PPU_CTRL        ; now turn on drawing officially
 ;   lda #%00011110      ; turn on drawing of background and sprites (UNUSED)
@@ -123,10 +166,13 @@ palette_data:
     .byte $22, $16, $30, $27
     .byte $22, $0f, $36, $17
 
-bishop_sprite:
+bishop_sprite_data:
 ;         Y    ID   ATTR X
     .byte $08, $01, $00, $01 ; x4
     .byte $10, $02, $00, $01 ; x8
+
+world_data:
+    .incbin "assets/chess.nam"
 
 ;   divided into two "banks" ...
 ;   a high bit and a low bit
