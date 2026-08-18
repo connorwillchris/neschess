@@ -39,11 +39,11 @@ _reset:
     ldx #$ff            ; initialize the stack register
     txs                 ; stack is $ff
     inx                 ; x = $00
-    stx PPU_CTRL         ; PPU_CTRL register, disabling it
-    stx PPU_MASK         ; do the same for PPU_MASK, disable it
+    stx PPU_CTRL        ; PPU_CTRL register, disabling it
+    stx PPU_MASK        ; do the same for PPU_MASK, disable it
     stx APU_DMC         ; disable DMC IRQs
 vblankwait_1:           ; the nes should be okay to use now
-    bit PPU_STATUS      ; WHAT IS THIS LOCATION?
+    bit PPU_STATUS      ; WHAT IS THIS LOCATION? ppu-status
     bpl vblankwait_1
     txa                 ; END LOOP, x should be $00, so ACC = 0
 clearmem:               ; clear memory loop
@@ -116,7 +116,6 @@ nametables_init:
     jmp @loop_1
 @done_with_loop:
 ;   DONE WITH NAMETABLE
-
     lda #$55 ; point to the appropriate palettes
 set_attribs:
     sta $2007 ; still storing into nametable
@@ -138,7 +137,7 @@ load_sprites:           ; will get all sprites
 turn_on_drawing:
 ;   lda #%10010000      ; uses the second screen entirely with bank 2 (UNUSED)
     cli
-    lda #%10010000      ; TODO: TRY THIS CODE ... Enable NMI
+    lda #%00010000      ; TODO: TRY THIS CODE ... Enable NMI
     sta PPU_CTRL        ; now turn on drawing officially
 ;   lda #%00011110      ; turn on drawing of background and sprites (UNUSED)
     lda #%00011110      ; TODO: CHECK IF THIS WORKS
@@ -172,9 +171,9 @@ bishop_sprite_data:
     .byte $10, $02, $00, $01 ; x8
 
 world_data:
-    .incbin "assets/chess.nam"
+    .incbin "./assets/test2.map"
 
 ;   divided into two "banks" ...
 ;   a high bit and a low bit
 .segment "CHARS"
-    .incbin "assets/chess.chr"
+    .incbin "./assets/chess.chr"

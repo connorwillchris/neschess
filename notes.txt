@@ -15,3 +15,18 @@ CHESS-USE 64 bits for screen representation for each type of piece?
 8 * 12 (black and white) = 96/256 bytes, which is 37.5% of the zeropage (TOO MANY BYTES)
 
 32 pieces (W + B) which includes 1 nibble for the X, and 1 nibble for the Y component. 0=1,7=8 :: 6-bits are used up
+
+
+PPU_MASK
+7  bit  0
+---- ----
+BGRs bMmG
+|||| ||||
+|||| |||+- Greyscale (0: normal color, 1: greyscale)
+|||| ||+-- 1: Show background in leftmost 8 pixels of screen, 0: Hide
+|||| |+--- 1: Show sprites in leftmost 8 pixels of screen, 0: Hide
+|||| +---- 1: Enable background rendering
+|||+------ 1: Enable sprite rendering
+||+------- Emphasize red (green on PAL/Dendy)
+|+-------- Emphasize green (red on PAL/Dendy)
++--------- Emphasize blue
