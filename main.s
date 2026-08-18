@@ -137,7 +137,7 @@ load_sprites:           ; will get all sprites
 turn_on_drawing:
 ;   lda #%10010000      ; uses the second screen entirely with bank 2 (UNUSED)
     cli
-    lda #%00010000      ; TODO: TRY THIS CODE ... Enable NMI
+    lda #%10010000      ; TODO: TRY THIS CODE ... Enable NMI
     sta PPU_CTRL        ; now turn on drawing officially
 ;   lda #%00011110      ; turn on drawing of background and sprites (UNUSED)
     lda #%00011110      ; TODO: CHECK IF THIS WORKS
