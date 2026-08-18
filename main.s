@@ -1,17 +1,9 @@
 ; header, not needed for the official release
-.segment "HEADER"
-    .byte "NES", $1a ; iNES header id
-    .byte 2 ; 2x 16KiB PRG code
-    .byte 1 ; 1x 8 KiB CHR data
-    .byte $01 ; mapper 0
-    .byte $00 ; vertical mirroring
-;   the rest of these bytes are set to zero
+.include "header.s"
 
-SPRITES_AMOUNT = 8
+SPRITES_AMOUNT = 2 * 4 ; the amount of bytes
 
 .segment "ZEROPAGE"
-w_rook:
-    .res 1 ; reserve 1 byte for white rook
 
 ;   PUT VARIABLES HERE!
 
@@ -81,11 +73,14 @@ load_palettes: ; load all the palettes, which are hardcoded rn
 ;   3 byte is kinda complicated
 ;   4 byte is the X coord
     ldx #$00
+
 load_sprites:
-    lda rook_sprite, x ; will get all sprites
+    lda bishop_sprite, x ; will get all sprites
     sta $0200, x ; store them into $0200 to init our sprites
     inx ; increment the index
+
     cpx #SPRITES_AMOUNT ; 32 bytes = 4*8 bytes, where 8 is tiles required
+
     bne load_sprites
 ;   LOOP END
 turn_on_drawing:
@@ -95,7 +90,7 @@ turn_on_drawing:
     sta $2000 ; now turn on drawing officially
 ;   lda #%00011110 ; turn on drawing of background and sprites
     lda #%00011110 ; TODO: CHECK IF THIS WORKS
-    sta $2001
+    sta $2001 ; 
 ;   enter game loop
 forever_loop:
     jmp forever_loop
@@ -119,7 +114,7 @@ palette_data:
     .byte $22, $16, $30, $27
     .byte $22, $0f, $36, $17
 
-rook_sprite:
+bishop_sprite:
 ;         Y    ID   ATR  X
     .byte $08, $01, $00, $01 ; x4
     .byte $10, $02, $00, $01 ; x8

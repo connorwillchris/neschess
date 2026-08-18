@@ -1,5 +1,10 @@
 
-ca65 main.s -o game.o --debug-info
-ca65 rook.s -o rook.o --debug-info
+set AS=ca65
+set LD=ld65
 
-ld65 game.o rook.o -o game.nes -t nes --dbgfile game.dbg
+%%AS%% controller.s    -o controller.o     --debug-info
+%%AS%% rook.s          -o rook.o           --debug-info
+%%AS%% main.s          -o game.o           --debug-info
+
+%%LD%% game.o rook.o controller.o \
+    -o game.nes -t nes --dbgfile game.dbg

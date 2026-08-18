@@ -9,3 +9,9 @@ each `.s` file includes its own "header" (`.inc`), and for _that_ run of ca65, `
 everything that wants to _use_ those symbols can now also include the `.inc` file. since they don't define the symbol, `.global` instead behaves like `.import`
 
 the linker is able to work it out from there, and it gives me nice separation between my modules.
+
+CHESS-USE 64 bits for screen representation for each type of piece?
+
+8 * 12 (black and white) = 96/256 bytes, which is 37.5% of the zeropage (TOO MANY BYTES)
+
+32 pieces (W + B) which includes 1 nibble for the X, and 1 nibble for the Y component. 0=1,7=8 :: 6-bits are used up
