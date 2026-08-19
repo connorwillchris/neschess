@@ -137,10 +137,10 @@ load_sprites:           ; will get all sprites
 turn_on_drawing:
 ;   lda #%10010000      ; uses the second screen entirely with bank 2 (UNUSED)
     cli
-    lda #%10010000      ; TODO: TRY THIS CODE ... Enable NMI
+    lda #%10010000      ; Enable NMI
     sta PPU_CTRL        ; now turn on drawing officially
 ;   lda #%00011110      ; turn on drawing of background and sprites (UNUSED)
-    lda #%00011110      ; TODO: CHECK IF THIS WORKS
+    lda #%00011110      ; WORKS
     sta PPU_MASK        ; store in PPU_MASK
 ;   enter game loop
 forever_loop:
