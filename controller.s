@@ -1,15 +1,22 @@
 .global read_controller
 
+JOYPAD1             = $4016
+.importzp controller_1_down, controller_1_pressed
+
 read_controller:    ; A B SELECT START UP DOWN LEFT RIGHT
-    lda #1          ; needed to read 8-bits for 8x times
-    sta $20         ; zeropage location = 0x32
-    sta $4016       ; set controller to read mode
-    lda #0          ; now write a zero
-    sta $4016       ; set controllers to low
-read_loop:
-    lda $4016       ; get all buttons into ACC
-    lsr a           ; logical shift A, first bit into the carry flag
-    rol $20         ; rol shifts 1 position to the left -> $20 = bit
-    bcc read_loop
-;   WE ARE FINISHED GETTING INPUTS
+    lda controller_1_down          ; needed to read 8-bits for 8x times
+    tay
+    sta JOYPAD1       ; set controller to read mode
+    sta controller_1_down          ; zeropage location = 0x32
+    lsr
+    sta JOYPAD1       ; set controllers to low
+@loop:
+    lda JOYPAD1
+    lsr
+    rol controller_1_down
+    bcc @loop
+    tya 
+    eor controller_1_down
+    and controller_1_down
+    sta controller_1_pressed
     rts

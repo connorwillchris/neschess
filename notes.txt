@@ -30,3 +30,12 @@ BGRs bMmG
 ||+------- Emphasize red (green on PAL/Dendy)
 |+-------- Emphasize green (red on PAL/Dendy)
 +--------- Emphasize blue
+
+# TITLE SCREEN
+
+- wait until Start is pressed
+- draw title screen menu (could be something like '1 player game, 2 player game', 'new game, continue, settings', whatever)
+- loop:
+  * if down or select is pressed, increment cursor and wrap around if necessary
+  * if up is pressed, decrement cursor and wrap around if necessary
+  * if A or start is pressed, jump to the appropriate handler for the menu option

@@ -3,7 +3,7 @@ FOLDER=$(HOME)/.programs/cc65/bin
 AS=ca65
 LD=ld65
 
-all: controller.s main.s 
+all: controller.s main.s
 	$(AS) controller.s -o controller.o --debug-info
 	$(AS) main.s -o game.o --debug-info
 	$(LD) game.o controller.o \

@@ -5,4 +5,3 @@
     .byte %00000001     ; mapper and mirroring
     .byte $00           ; vertical mirroring
 ;   the rest of these bytes are set to $00
-

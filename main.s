@@ -1,10 +1,11 @@
 ; header, not needed for the official release
-.include "header.s"
+.include "header.inc"
 
 ;;; other includes here
 .include "controller.inc"
 
-;;; END
+;; EXPORTS
+.exportzp controller_1_down, controller_1_pressed
 
 BYTES_PER_SPRITE    = 4
 SPRITES_AMOUNT      = 2 * BYTES_PER_SPRITE ; THE AMOUNT OF BYTES FOR THE NECESSARY SPRITES
@@ -16,9 +17,21 @@ PPU_ADDR            = $2006
 
 APU_DMC             = $4010
 OAM_DMA             = $4014
+JOYPAD1             = $4016
 FRAME_CTR           = $4017
 
 .segment "ZEROPAGE"
+controller_1_down:
+    .res 1
+controller_1_pressed:
+    .res 1
+
+; PIECE INFO, we just hardwire x and y for now.
+p_x:
+    .res 1
+p_y:
+    .res 1
+
 world_ptr:
     .res 2
 
@@ -82,7 +95,31 @@ load_palettes:          ; load all the palettes, which are hardcoded rn
     cpx #32             ; 32 palettes
     bne load_palettes
 
-;   ldx #$00
+;   DO NAMETABLE BS
+    jsr nametables_init
+;   DONE WITH LOOP set attribs
+    ldx #$00
+    ldy #$00
+load_sprites:           ; will get all sprites
+    lda bishop_sprite_data, x
+    sta $0200, x        ; store them into $0200 to init our sprites
+    inx                 ; increment the index
+    cpx #SPRITES_AMOUNT ; 32 bytes = 4*8 bytes, where 8 is tiles required
+    bne load_sprites
+;   LOOP END
+
+turn_on_drawing:
+;   lda #%10010000      ; uses the second screen entirely with bank 2 (UNUSED)
+    cli
+    lda #%10010000      ; Enable NMI
+    sta PPU_CTRL        ; now turn on drawing officially
+;   lda #%00011110      ; turn on drawing of background and sprites (UNUSED)
+    lda #%00011110      ; WORKS
+    sta PPU_MASK        ; store in PPU_MASK
+;   enter game loop
+forever_loop:
+    jmp forever_loop
+
 nametables_init:
 ;   AFTER LOAD PALETTES, LOAD THE NAMETABLE DATA
 ;   1024 bytes which will be loaded into $2000
@@ -122,29 +159,7 @@ set_attribs:
     inx
     cpx #$40 ; compare to #64
     bne set_attribs
-
-;   DONE WITH LOOP set attribs
-    ldx #$00
-    ldy #$00
-load_sprites:           ; will get all sprites
-    lda bishop_sprite_data, x
-    sta $0200, x        ; store them into $0200 to init our sprites
-    inx                 ; increment the index
-    cpx #SPRITES_AMOUNT ; 32 bytes = 4*8 bytes, where 8 is tiles required
-    bne load_sprites
-;   LOOP END
-
-turn_on_drawing:
-;   lda #%10010000      ; uses the second screen entirely with bank 2 (UNUSED)
-    cli
-    lda #%10010000      ; Enable NMI
-    sta PPU_CTRL        ; now turn on drawing officially
-;   lda #%00011110      ; turn on drawing of background and sprites (UNUSED)
-    lda #%00011110      ; WORKS
-    sta PPU_MASK        ; store in PPU_MASK
-;   enter game loop
-forever_loop:
-    jmp forever_loop
+    rts
 
 ;   every NMI, do this code...
 _nmi:
