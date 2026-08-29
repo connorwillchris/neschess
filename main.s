@@ -95,7 +95,7 @@ load_palettes:          ; load all the palettes, which are hardcoded rn
     cpx #32             ; 32 palettes
     bne load_palettes
 
-;   DO NAMETABLE BS
+;   DO NAMETABLE STUFF
     jsr nametables_init
 ;   DONE WITH LOOP set attribs
     ldx #$00
@@ -120,6 +120,7 @@ turn_on_drawing:
 forever_loop:
     jmp forever_loop
 
+; SUBROUTINE
 nametables_init:
 ;   AFTER LOAD PALETTES, LOAD THE NAMETABLE DATA
 ;   1024 bytes which will be loaded into $2000
