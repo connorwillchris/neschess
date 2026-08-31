@@ -187,7 +187,7 @@ bishop_sprite_data:
     .byte $10, $02, $00, $01 ; x8
 
 world_data:
-    .incbin "./assets/test2.map"
+    .incbin "./assets/chessboard.map"
 
 ;   divided into two "banks" ...
 ;   a high bit and a low bit
