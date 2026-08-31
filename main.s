@@ -183,8 +183,11 @@ palette_data:
 
 bishop_sprite_data:
 ;         Y    ID   ATTR X
-    .byte $08, $01, $00, $01 ; x4
-    .byte $10, $02, $00, $01 ; x8
+    .byte $38, $01, $00, $44 ; x4
+    .byte $40, $02, $00, $44 ; x8
+
+;       X    Y
+; TILE ($48, $40)
 
 world_data:
     .incbin "./assets/chessboard.map"
