@@ -192,4 +192,4 @@ world_data:
 ;   divided into two "banks" ...
 ;   a high bit and a low bit
 .segment "CHARS"
-    .incbin "./assets/chess.chr"
+    .incbin "./assets/chardata.chr"
