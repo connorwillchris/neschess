@@ -171,23 +171,21 @@ _nmi:
 ;   palette data can be here
 ;   NOTE: copied directly from MICHAEL's code
 palette_data:
-    .byte $22, $29, $1a, $0f ; background palette data
-    .byte $22, $36, $17, $0f
-    .byte $22, $30, $21, $0f
-    .byte $22, $27, $17, $0f
+background_palette_data:
+    .incbin "./assets/palettes_test.pal"
 
-    .byte $22, $16, $27, $18 ; sprite palette data
-    .byte $22, $1A, $30, $27
-    .byte $22, $16, $30, $27
-    .byte $22, $0f, $36, $17
+;   sprite palette data
+sprite_palette_data:
+;   .byte $22, $16, $27, $18
+;   .byte $22, $1A, $30, $27
+;   .byte $22, $16, $30, $27
+;   .byte $22, $0f, $36, $17
+    .incbin "./assets/sprite_palettes.pal"
 
 bishop_sprite_data:
 ;         Y    ID   ATTR X
     .byte $38, $01, $00, $44 ; x4
     .byte $40, $02, $00, $44 ; x8
-
-;       X    Y
-; TILE ($48, $40)
 
 world_data:
     .incbin "./assets/chessboard.map"
