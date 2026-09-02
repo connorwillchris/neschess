@@ -174,7 +174,6 @@ palette_data:
 background_palette_data:
     .incbin "./assets/palettes_test.pal"
 
-;   sprite palette data
 sprite_palette_data:
 ;   .byte $22, $16, $27, $18
 ;   .byte $22, $1A, $30, $27
