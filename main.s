@@ -8,6 +8,7 @@
 .exportzp controller_1_down, controller_1_pressed
 
 BYTES_PER_SPRITE    = 4
+
 SPRITES_AMOUNT      = 2 * BYTES_PER_SPRITE ; THE AMOUNT OF BYTES FOR THE NECESSARY SPRITES
 
 PPU_CTRL            = $2000
@@ -183,8 +184,8 @@ sprite_palette_data:
 
 bishop_sprite_data:
 ;         Y    ID   ATTR X
-    .byte $38, $01, $00, $44 ; x4
-    .byte $40, $02, $00, $44 ; x8
+    .byte $38, $01, $00, $64 ; x4
+    .byte $40, $02, $00, $64 ; x8
 
 ;   NEW SPRITES HERE
 
